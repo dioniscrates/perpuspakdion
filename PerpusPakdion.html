@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PERPUS PAK DION – Perpustakaan Digital Sekolah</title>
+<meta name="theme-color" content="#0b2a5b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d80;--sky:#38bdf8;--sky-l:#e0f3fe;--bg:#f4f8fd;--card:#fff;--tx:#10213f;--mut:#5b6b88;--line:#dde6f2;--red:#c62f3a;--r:16px}
+*{box-sizing:border-box;margin:0}
+html,body{overflow-x:hidden}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;font-size:16px;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit;-webkit-user-select:text;user-select:text}
+a{color:inherit;text-decoration:none}
+.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20}
+.top .brand{font-weight:800;letter-spacing:.2px;font-size:17px;flex:1;display:flex;gap:10px;align-items:center}
+.top .brand i{font-style:normal;background:var(--sky);color:var(--navy);width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px}
+.top a.ic{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;opacity:.85;font-size:18px}
+.top a.ic:hover{background:rgba(255,255,255,.14)}
+main{max-width:920px;margin:0 auto;padding:18px 16px 40px}
+.hero{background:linear-gradient(160deg,var(--navy) 55%,var(--navy2));color:#fff;border-radius:24px;padding:28px 22px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:190px;height:190px;border-radius:50%;background:var(--sky);opacity:.18}
+.hero h1{font-size:clamp(26px,7vw,40px);line-height:1.1;font-weight:800;max-width:14em}
+.hero .sub{margin-top:10px;font-weight:700;color:var(--sky);font-size:17px}
+.hero p{margin-top:8px;opacity:.85;max-width:34em;font-size:15px}
+h2{font-size:20px;font-weight:800;margin:4px 0 12px}
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:640px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+.pick{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;width:100%;transition:transform .15s,box-shadow .15s,border-color .15s;min-height:92px}
+.pick:hover,.pick:focus-visible{transform:translateY(-3px);box-shadow:0 10px 24px rgba(11,42,91,.12);border-color:var(--sky);outline:0}
+.pick .ico{flex:none;width:56px;height:56px;border-radius:16px;background:var(--sky-l);display:grid;place-items:center;font-size:28px}
+.pick b{display:block;font-size:18px;color:var(--navy)}
+.pick small{color:var(--mut)}
+.pick.g{flex-direction:column;text-align:center;justify-content:center;padding:26px 12px}
+.pick.g .num{font-size:46px;font-weight:800;color:var(--navy);line-height:1;width:84px;height:84px;border-radius:50%;border:5px solid var(--sky);display:grid;place-items:center}
+.crumb{font-size:13px;color:var(--mut);margin-bottom:12px;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.crumb a{color:var(--navy2);font-weight:700}
+.back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:700;color:var(--navy);cursor:pointer;margin-bottom:14px;min-height:44px}
+.tools{display:grid;gap:10px;margin-bottom:14px}
+.inp{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;min-height:48px}
+.inp:focus{outline:2px solid var(--sky);border-color:var(--sky)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chip{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px;cursor:pointer}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:8px}
+.mat h3{font-size:17px;color:var(--navy);line-height:1.3;overflow-wrap:anywhere}
+.mat p{color:var(--mut);font-size:14px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;color:var(--mut);align-items:center}
+.tag{background:var(--sky-l);color:var(--navy);font-weight:700;border-radius:8px;padding:3px 9px;font-size:12px}
+.tag.t{background:#fde8ea;color:var(--red)}
+.fn{font-size:12px;color:var(--mut);overflow-wrap:anywhere}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;min-height:46px;flex:1;background:var(--navy);color:#fff;white-space:nowrap}
+.btn:hover{background:var(--navy2)}
+.btn.o{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.btn.o:hover{background:var(--sky-l)}
+.btn.d{background:var(--red)}
+.btn.s{min-height:38px;padding:8px 12px;font-size:14px;flex:none}
+.empty{text-align:center;padding:42px 16px;color:var(--mut);background:#fff;border:1.5px dashed var(--line);border-radius:var(--r)}
+.empty div{font-size:42px}
+.spin{width:34px;height:34px;border:4px solid var(--sky-l);border-top-color:var(--navy);border-radius:50%;animation:sp .8s linear infinite;margin:40px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.viewer{background:#e9eef6;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;position:relative}
+.viewer iframe{width:100%;height:72vh;border:0;background:#fff;display:block}
+.viewer.full{position:fixed;inset:0;z-index:50;border-radius:0;display:flex;flex-direction:column}
+.viewer.full iframe,.viewer.full .pdf{height:auto;flex:1;max-height:none}
+.pdf{max-height:72vh;overflow:auto;padding:8px;display:grid;gap:8px;justify-items:start;-webkit-overflow-scrolling:touch}
+.viewer.full .pdf{max-height:none}
+.pdf canvas{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12);max-width:none}
+.vbar{display:flex;gap:8px;padding:8px;background:#fff;border-bottom:1px solid var(--line)}
+pre.txt{white-space:pre-wrap;word-break:break-word;padding:16px;background:#fff;max-height:72vh;overflow:auto;font-size:15px}
+.note{padding:28px 18px;text-align:center;color:var(--mut)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px}
+label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.st{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.st b{font-size:28px;color:var(--navy);display:block;line-height:1.1}
+.st span{font-size:12px;color:var(--mut)}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tabs .btn{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.tabs .btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;padding:13px 20px;border-radius:14px;z-index:99;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+.toast.err{background:var(--red)}
+.modal{position:fixed;inset:0;background:rgba(8,20,45,.55);z-index:60;display:grid;place-items:end center;padding:0}
+@media(min-width:640px){.modal{place-items:center;padding:20px}}
+.modal>div{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:20px}
+@media(min-width:640px){.modal>div{border-radius:22px}}
+.setup{background:#fff8e6;border:1.5px solid #f0c75e;border-radius:var(--r);padding:18px}
+.foot{text-align:center;color:var(--mut);font-size:12px;padding:10px 0 24px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="#/"><i>📚</i><span>PERPUS PAK DION</span></a><a class="ic" href="#/about" title="Tentang" aria-label="Tentang">ℹ️</a><a class="ic" href="#/admin" title="Guru" aria-label="Akses guru">🔒</a></header>
+<main id="app"></main>
+<div class="foot">PERPUS PAK DION · Perpustakaan Digital Sekolah</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+/* ========== KONFIGURASI — ISI DENGAN DATA SUPABASE ANDA ========== */
+const SUPABASE_URL = "https://mwmyydaawwtxpeudusyb.supabase.co";      // contoh: https://abcdxyz.supabase.co
+const SUPABASE_KEY = "sb_publishable_KM5RVgDK-M1hU-S5rgXHqA_WhPerSfx";      // anon public key
+/* ================================================================ */
+const BUCKET = "materi";
+const SCHOOLS = {isr:{name:"SMP Ignatius Slamet Riyadi",ico:"🏫"}, ys:{name:"SMP Yos Sudarso",ico:"🎓"}};
+const SUBJECTS = ["Informatika","Matematika","Bahasa Indonesia","Bahasa Inggris","IPA","IPS","Pendidikan Agama","Mata Pelajaran Lainnya"];
+const OK_EXT = ["pdf","doc","docx","ppt","pptx","html","htm","txt"];
+const $ = s => document.querySelector(s), app = $("#app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ext = n => (n.split(".").pop() || "").toLowerCase();
+const fmtSize = b => b > 1048576 ? (b/1048576).toFixed(1)+" MB" : Math.max(1,Math.round(b/1024))+" KB";
+const fmtDate = d => new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"});
+const dlUrl = m => m.file_url + "?download=" + encodeURIComponent(m.file_name);
+const spin = () => '<div class="spin" role="status" aria-label="Memuat"></div>';
+let sb = null;
+if (SUPABASE_URL && SUPABASE_KEY) sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function toast(msg, err){const t=document.createElement("div");t.className="toast"+(err?" err":"");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+function setupBox(){return `<div class="setup"><h2>Konfigurasi belum diisi</h2><p>Buka file <b>index.html</b>, isi <b>SUPABASE_URL</b> dan <b>SUPABASE_KEY</b> di bagian atas script, lalu simpan dan unggah ulang. Panduan lengkap ada di penjelasan pembuatan aplikasi.</p></div>`}
+function crumbs(list){return `<nav class="crumb" aria-label="Posisi halaman">${list.map((c,i)=>c[1]?`<a href="${c[1]}">${esc(c[0])}</a>`:`<span>${esc(c[0])}</span>`).join(" <span>›</span> ")}</nav>`}
+const typeTag = e => `<span class="tag ${e==='pdf'?'t':''}">${e.toUpperCase()}</span>`;
+
+/* ================= ROUTER ================= */
+window.addEventListener("hashchange", route);
+route();
+function route(){
+  window.scrollTo(0,0);
+  const p = location.hash.replace(/^#\/?/,"").split("/").filter(Boolean);
+  if(!p.length) return home();
+  if(p[0]==="about") return about();
+  if(p[0]==="admin") return admin();
+  if(!sb) { app.innerHTML = setupBox(); return; }
+  if(p[0]==="s" && SCHOOLS[p[1]]){ if(p[2]==="k" && [7,8,9].includes(+p[3])) return list(p[1],+p[3]); return grades(p[1]); }
+  if(p[0]==="m") return reader(p[1]);
+  home();
+}
+
+/* ================= SISWA ================= */
+function home(){
+  app.innerHTML = `<section class="hero"><h1>PERPUSTAKAAN DIGITAL SEKOLAH</h1><div class="sub">Satu Tempat untuk Belajar, Membaca, dan Berkembang.</div><p>Akses materi pembelajaran kapan saja dan di mana saja, langsung dari HP. Tanpa daftar, tanpa login.</p></section>
+  <h2>Pilih sekolahmu</h2><div class="grid c2">${Object.entries(SCHOOLS).map(([k,s])=>`<a class="pick" href="#/s/${k}"><span class="ico">${s.ico}</span><span><b>${s.name}</b><small>Kelas 7 · 8 · 9</small></span></a>`).join("")}</div>${sb?"":"<br>"+setupBox()}`;
+}
+function grades(sid){
+  const s = SCHOOLS[sid];
+  app.innerHTML = crumbs([["Beranda","#/"],[s.name]]) + `<a class="back" href="#/">← Kembali</a><h2>${s.name}</h2><p style="color:var(--mut);margin-bottom:14px">Pilih tingkat kelas</p><div class="grid c3">${[7,8,9].map(g=>`<a class="pick g" href="#/s/${sid}/k/${g}"><span class="num">${g}</span><b>Kelas ${g}</b></a>`).join("")}</div>`;
+}
+async function list(sid,g){
+  const s = SCHOOLS[sid];
+  app.innerHTML = crumbs([["Beranda","#/"],[s.name,`#/s/${sid}`],["Kelas "+g]]) + `<a class="back" href="#/s/${sid}">← Kembali</a><h2>Materi Kelas ${g}</h2><div id="box">${spin()}</div>`;
+  const {data,error} = await sb.from("materials").select("*").eq("school",sid).eq("grade",g).order("created_at",{ascending:false});
+  if(error) return $("#box").innerHTML = `<div class="empty"><div>⚠️</div>Gagal memuat materi. Periksa koneksi internet.</div>`;
+  if(!data.length) return $("#box").innerHTML = `<div class="empty"><div>📭</div>Belum ada materi pembelajaran yang tersedia.</div>`;
+  const subs = [...new Set(data.map(m=>m.subject))];
+  let sub = "", q = "";
+  $("#box").innerHTML = `<div class="tools"><input class="inp" id="q" type="search" placeholder="🔍 Cari materi…" aria-label="Cari materi"><div class="chips" id="chips"></div></div><div class="grid" id="items"></div>`;
+  const draw = () => {
+    $("#chips").innerHTML = ["Semua",...subs].map(x=>`<button class="chip ${(x==="Semua"?"":x)===sub?"on":""}" data-s="${esc(x==="Semua"?"":x)}">${esc(x)}</button>`).join("");
+    const r = data.filter(m=>(!sub||m.subject===sub)&&(m.title+" "+m.description+" "+m.file_name).toLowerCase().includes(q));
+    $("#items").innerHTML = r.length ? r.map(matCard).join("") : `<div class="empty"><div>🔎</div>Materi tidak ditemukan.</div>`;
+    document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{sub=c.dataset.s;draw()});
+  };
+  $("#q").oninput = e => {q=e.target.value.toLowerCase().trim();draw()};
+  draw();
+}
+const matCard = m => `<article class="mat"><div class="meta">${typeTag(m.file_type)}<span class="tag">${esc(m.subject)}</span><span>${fmtDate(m.created_at)}</span></div><h3>${esc(m.title)}</h3>${m.description?`<p>${esc(m.description)}</p>`:""}<div class="fn">📄 ${esc(m.file_name)} · ${fmtSize(m.file_size)}</div><div class="row"><a class="btn" href="#/m/${m.id}">📖 BACA MATERI</a><a class="btn o" href="${dlUrl(m)}">⬇ DOWNLOAD</a></div></article>`;
+
+async function reader(id){
+  app.innerHTML = spin();
+  const {data:m} = await sb.from("materials").select("*").eq("id",id).single();
+  if(!m) return app.innerHTML = `<div class="empty"><div>😕</div>Materi tidak ditemukan.</div><br><a class="btn" href="#/">Ke beranda</a>`;
+  const back = `#/s/${m.school}/k/${m.grade}`, e = m.file_type;
+  app.innerHTML = crumbs([["Beranda","#/"],[SCHOOLS[m.school].name,`#/s/${m.school}`],["Kelas "+m.grade,back],[m.title]]) +
+  `<a class="back" href="${back}">← Daftar materi</a><h2 style="overflow-wrap:anywhere">${esc(m.title)}</h2><div class="meta" style="margin-bottom:12px">${typeTag(e)}<span class="tag">${esc(m.subject)}</span><span>${fmtDate(m.created_at)}</span></div>
+  <div class="viewer" id="vw"><div class="vbar"><a class="btn s o" href="${dlUrl(m)}">⬇ Download</a><button class="btn s o" id="fs">⤢ Perbesar</button>${e==="pdf"?'<button class="btn s o" id="zo">🔍 Zoom</button>':""}</div><div id="vc">${spin()}</div></div>`;
+  $("#fs").onclick = () => { const v=$("#vw").classList.toggle("full"); $("#fs").textContent = v?"✕ Tutup":"⤢ Perbesar"; };
+  const vc = $("#vc"), noPrev = `<div class="note">Pratinjau tidak tersedia untuk file ini.<br>Silakan unduh terlebih dahulu.</div>`;
+  try{
+    if(e==="pdf"){
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      const doc = await pdfjsLib.getDocument(m.file_url).promise;
+      let z = 1;
+      const paint = async () => { vc.className="pdf"; vc.innerHTML=""; const w=Math.max(280,vc.clientWidth-16)*z, dpr=Math.min(2,devicePixelRatio||1);
+        for(let i=1;i<=doc.numPages;i++){ const pg=await doc.getPage(i), v0=pg.getViewport({scale:1}), sc=w/v0.width, v=pg.getViewport({scale:sc*dpr}), c=document.createElement("canvas");
+          c.width=v.width;c.height=v.height;c.style.width=w+"px";c.style.height=(v.height/dpr)+"px";vc.appendChild(c); await pg.render({canvasContext:c.getContext("2d"),viewport:v}).promise; } };
+      $("#zo").onclick = () => { z = z>=2?1:z+0.5; paint(); };
+      vc.innerHTML=""; vc.className="pdf"; await paint();
+    } else if(e==="html"||e==="htm"){
+      const html = await (await fetch(m.file_url)).text();
+      vc.innerHTML = '<iframe sandbox="allow-scripts allow-forms allow-popups allow-modals" title="Materi"></iframe>';
+      vc.firstChild.srcdoc = html;
+    } else if(e==="txt"){
+      vc.innerHTML = `<pre class="txt">${esc(await (await fetch(m.file_url)).text())}</pre>`;
+    } else if(["doc","docx","ppt","pptx"].includes(e)){
+      vc.innerHTML = `<iframe title="Pratinjau" src="https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(m.file_url)}"></iframe><div class="note" style="padding:10px">Pratinjau tidak muncul? Gunakan tombol Download.</div>`;
+    } else vc.innerHTML = noPrev;
+  }catch(err){ vc.className=""; vc.innerHTML = noPrev; }
+}
+function about(){
+  app.innerHTML = crumbs([["Beranda","#/"],["Tentang"]]) + `<a class="back" href="#/">← Kembali</a><div class="card"><h2>Tentang PERPUS PAK DION</h2><p>Perpustakaan digital untuk siswa SMP Ignatius Slamet Riyadi dan SMP Yos Sudarso. Materi diunggah oleh guru dan dapat dibaca langsung atau diunduh, tanpa membuat akun.</p><br><p><b>Cara memakai:</b> pilih sekolah, pilih kelas, pilih materi, lalu tekan BACA MATERI atau DOWNLOAD.</p></div>`;
+}
+
+/* ================= ADMIN ================= */
+async function admin(){
+  if(!sb) return app.innerHTML = setupBox();
+  const {data:{session}} = await sb.auth.getSession();
+  if(!session) return login();
+  dash("upload");
+}
+function login(){
+  app.innerHTML = crumbs([["Beranda","#/"],["Login Guru"]]) + `<form class="card" id="lf" style="max-width:420px;margin:auto" autocomplete="on"><h2>🔒 Login Guru</h2><label for="em">Email</label><input class="inp" id="em" name="email" type="email" autocomplete="username" autocapitalize="off" required><label for="pw">Password</label><div style="position:relative"><input class="inp" id="pw" name="password" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required style="padding-right:84px"><button type="button" id="eye" class="btn s o" style="position:absolute;right:5px;top:5px">Lihat</button></div><div class="row" style="margin-top:16px"><button class="btn" id="go" type="submit">Masuk</button></div><p id="lerr" style="color:var(--red);margin-top:10px;font-size:14px"></p></form>`;
+  const pw=$("#pw"); let show=false;
+  $("#eye").onclick=()=>{ show=!show; pw.type=show?"text":"password"; $("#eye").textContent=show?"Sembunyi":"Lihat"; pw.focus(); };
+  $("#lf").onsubmit = async ev => {
+    ev.preventDefault(); const btn=$("#go"); btn.disabled=true; btn.textContent="Memeriksa…"; $("#lerr").textContent="";
+    try{
+      const {error}=await sb.auth.signInWithPassword({email:$("#em").value.trim(),password:pw.value});
+      if(error) throw error;
+      toast("Berhasil masuk"); admin();
+    }catch(err){ $("#lerr").textContent = "Gagal masuk: " + (err.message||err); btn.disabled=false; btn.textContent="Masuk"; }
+  };
+  setTimeout(()=>$("#em").focus(),50);
+}
+async function dash(tab){
+  app.innerHTML = spin();
+  const {data:all=[]} = await sb.from("materials").select("*").order("created_at",{ascending:false});
+  const cnt = f => all.filter(f).length, types = {pdf:["pdf"],Word:["doc","docx"],HTML:["html","htm"],Lainnya:["ppt","pptx","txt"]};
+  app.innerHTML = `<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="margin:0">Dashboard Guru</h2><button class="btn s o" id="out">Keluar</button></div>
+  <div class="stats"><div class="st"><b>${all.length}</b><span>Total materi</span></div>${Object.entries(SCHOOLS).map(([k,s])=>`<div class="st"><b>${cnt(m=>m.school===k)}</b><span>${s.name}</span></div>`).join("")}<div class="st"><b>${[7,8,9].map(g=>cnt(m=>m.grade===g)).join(" / ")}</b><span>Kelas 7 / 8 / 9</span></div></div>
+  <div class="stats">${Object.entries(types).map(([k,v])=>`<div class="st"><b>${cnt(m=>v.includes(m.file_type))}</b><span>File ${k}</span></div>`).join("")}</div>
+  <div class="tabs"><button class="btn ${tab==="upload"?"on":""}" id="t1">⬆ Upload</button><button class="btn ${tab==="manage"?"on":""}" id="t2">🗂 Kelola</button></div><div id="pane"></div>`;
+  $("#out").onclick = async()=>{await sb.auth.signOut();location.hash="#/"};
+  $("#t1").onclick=()=>dash("upload"); $("#t2").onclick=()=>dash("manage");
+  tab==="upload" ? uploadForm() : manage(all);
+}
+const opts = (arr,sel) => arr.map(([v,t])=>`<option value="${v}" ${v==sel?"selected":""}>${t}</option>`).join("");
+const schoolOpts = s => opts(Object.entries(SCHOOLS).map(([k,v])=>[k,v.name]),s);
+const gradeOpts = g => opts([7,8,9].map(x=>[x,"Kelas "+x]),g);
+const subjOpts = s => opts(SUBJECTS.map(x=>[x,x]),s);
+const safeName = n => n.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]+/g,"_");
+async function putFile(f, school, grade){
+  const path = `${school}/${grade}/${Date.now()}-${safeName(f.name)}`;
+  const e = ext(f.name), ct = e==="html"||e==="htm" ? "text/html" : (f.type||undefined);
+  const {error} = await sb.storage.from(BUCKET).upload(path,f,{contentType:ct,upsert:false}); if(error) throw error;
+  return {file_path:path,file_url:sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl,file_name:f.name,file_type:e,file_size:f.size};
+}
+function uploadForm(){
+  $("#pane").innerHTML = `<form class="card" id="uf"><label>Judul Materi</label><input class="inp" id="ti" required><label>Deskripsi Materi</label><textarea class="inp" id="de" rows="3"></textarea><label>Sekolah</label><select class="inp" id="sc">${schoolOpts()}</select><label>Kelas</label><select class="inp" id="gr">${gradeOpts(7)}</select><label>Mata Pelajaran</label><select class="inp" id="su">${subjOpts()}</select><label>File Materi (boleh lebih dari satu)</label><input class="inp" id="fl" type="file" multiple required accept=".pdf,.doc,.docx,.ppt,.pptx,.html,.htm,.txt"><div class="row" style="margin-top:16px"><button class="btn" id="sv">Upload Materi</button></div></form>`;
+  $("#uf").onsubmit = async ev => {
+    ev.preventDefault();
+    const files=[...$("#fl").files], bad=files.find(f=>!OK_EXT.includes(ext(f.name)));
+    if(bad) return toast("Format tidak didukung: "+bad.name,1);
+    const btn=$("#sv"); btn.disabled=true; let ok=0;
+    for(const [i,f] of files.entries()){
+      btn.textContent = `Mengunggah ${i+1}/${files.length}…`;
+      try{
+        const meta = await putFile(f,$("#sc").value,$("#gr").value);
+        const title = files.length>1 ? `${$("#ti").value} – ${f.name.replace(/\.[^.]+$/,"")}` : $("#ti").value;
+        const {error} = await sb.from("materials").insert({title,description:$("#de").value,school:$("#sc").value,grade:+$("#gr").value,subject:$("#su").value,...meta});
+        if(error) throw error; ok++;
+      }catch(err){ toast("Gagal: "+f.name+" ("+(err.message||err)+")",1); }
+    }
+    if(ok){ toast(`Berhasil! ${ok} materi diunggah`); dash("manage"); } else { btn.disabled=false; btn.textContent="Upload Materi"; }
+  };
+}
+function manage(all){
+  let q="",fs="",fg="";
+  $("#pane").innerHTML = `<div class="tools"><input class="inp" id="mq" type="search" placeholder="🔍 Cari judul…"><div class="grid c2"><select class="inp" id="mfs"><option value="">Semua sekolah</option>${schoolOpts()}</select><select class="inp" id="mfg"><option value="">Semua kelas</option>${gradeOpts()}</select></div></div><div class="grid" id="ml"></div>`;
+  $("#mfs").value=""; $("#mfg").value="";
+  const draw=()=>{
+    const r=all.filter(m=>m.title.toLowerCase().includes(q)&&(!fs||m.school===fs)&&(!fg||m.grade==fg));
+    $("#ml").innerHTML = r.length ? r.map(m=>`<article class="mat"><div class="meta">${typeTag(m.file_type)}<span class="tag">${esc(m.subject)}</span></div><h3>${esc(m.title)}</h3><div class="fn">${SCHOOLS[m.school].name} · Kelas ${m.grade} · ${fmtDate(m.created_at)}<br>📄 ${esc(m.file_name)}</div><div class="row"><button class="btn s o" data-e="${m.id}">✏️ Edit</button><a class="btn s o" href="#/m/${m.id}">👁 Lihat</a><button class="btn s d" data-d="${m.id}">🗑 Hapus</button></div></article>`).join("") : `<div class="empty"><div>📭</div>Belum ada materi.</div>`;
+    document.querySelectorAll("[data-e]").forEach(b=>b.onclick=()=>edit(all.find(m=>m.id===b.dataset.e)));
+    document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>del(all.find(m=>m.id===b.dataset.d)));
+  };
+  $("#mq").oninput=e=>{q=e.target.value.toLowerCase();draw()}; $("#mfs").onchange=e=>{fs=e.target.value;draw()}; $("#mfg").onchange=e=>{fg=e.target.value;draw()};
+  draw();
+}
+async function del(m){
+  if(!confirm(`Hapus materi "${m.title}"?\nTindakan ini tidak dapat dibatalkan.`)) return;
+  await sb.storage.from(BUCKET).remove([m.file_path]);
+  const {error}=await sb.from("materials").delete().eq("id",m.id);
+  if(error) return toast("Gagal menghapus",1); toast("Materi dihapus"); dash("manage");
+}
+function edit(m){
+  const d=document.createElement("div"); d.className="modal";
+  d.innerHTML=`<div><h2>Edit Materi</h2><label>Judul</label><input class="inp" id="eti" value="${esc(m.title)}"><label>Deskripsi</label><textarea class="inp" id="ede" rows="3">${esc(m.description)}</textarea><label>Sekolah</label><select class="inp" id="esc">${schoolOpts(m.school)}</select><label>Kelas</label><select class="inp" id="egr">${gradeOpts(m.grade)}</select><label>Mata Pelajaran</label><select class="inp" id="esu">${subjOpts(m.subject)}</select><label>Ganti file (opsional)</label><input class="inp" id="efl" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.html,.htm,.txt"><div class="row" style="margin-top:16px"><button class="btn o" id="ec">Batal</button><button class="btn" id="es">Simpan</button></div></div>`;
+  document.body.appendChild(d); $("#ec").onclick=()=>d.remove();
+  $("#es").onclick=async()=>{
+    const b=$("#es"); b.disabled=true; b.textContent="Menyimpan…";
+    try{
+      const u={title:$("#eti").value,description:$("#ede").value,school:$("#esc").value,grade:+$("#egr").value,subject:$("#esu").value}, f=$("#efl").files[0];
+      if(f){ if(!OK_EXT.includes(ext(f.name))) throw new Error("Format tidak didukung"); Object.assign(u,await putFile(f,u.school,u.grade)); await sb.storage.from(BUCKET).remove([m.file_path]); }
+      const {error}=await sb.from("materials").update(u).eq("id",m.id); if(error) throw error;
+      d.remove(); toast("Perubahan disimpan"); dash("manage");
+    }catch(err){ toast("Gagal: "+(err.message||err),1); b.disabled=false; b.textContent="Simpan"; }
+  };
+}
+</script>
+</body>
+</html>
