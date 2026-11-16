@@ -180,7 +180,7 @@ function route(){
 
 /* ================= SISWA ================= */
 function home(){
-  app.innerHTML = `<section class="hero"><h1><span>Perpustakaan</span><em>Pak Dion</em></h1><div class="sub">Satu Tempat untuk Belajar,<br><b>Membaca, dan Berkembang.</b></div><p>Akses materi pembelajaran kapan saja dan di mana saja, langsung dari HP. Tanpa daftar, tanpa login.</p></section>
+  app.innerHTML = `<section class="hero"><h1><span>Perpustakaan</span><em>Pak Dion</em></h1><div class="sub">Satu Tempat untuk Belajar,<br><b>Membaca, dan Berkembang.</b></div><p>Akses materi pembelajaran kapan saja dan di mana saja, langsung dari HP.</p></section>
   <div class="home-body"><div class="pickbox"><h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2v3.6c0 1.7 3.1 3.2 7 3.2s7-1.5 7-3.2v-3.6l-7 3.8-7-3.8z"/></svg>Pilih Sekolahmu</h2><div class="grid c2">${Object.entries(SCHOOLS).map(([k,s])=>`<a class="pick" href="#/s/${k}"><span class="ico">${s.ico}</span><span><b>${s.name}</b><small>Kelas 7 · 8 · 9</small></span></a>`).join("")}</div></div>
   <a class="ig" href="https://instagram.com/dioniscrates" target="_blank" rel="noopener"><span class="ig-i"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="#fff" stroke="none"/></svg></span><span class="ig-t"><b>@dioniscrates</b><i>Jangan lupa follow!</i></span></a></div>${sb?"":"<br>"+setupBox()}`;
 }
