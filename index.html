@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PERPUS PAK DION – Perpustakaan Digital Sekolah</title>
 <meta name="theme-color" content="#0b2a5b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Perpus Dion">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -538,6 +545,9 @@ function edit(m){
 <script>
 /* Penanda menu aktif pada navigasi (khusus tampilan) */
 (function(){function mark(){var h=location.hash.replace(/^#\/?/,"").split("/")[0],r=h==="about"?"about":(h===""?"home":"");document.querySelectorAll("#navlinks a[data-r]").forEach(function(a){a.classList.toggle("on",a.dataset.r===r)})}window.addEventListener("hashchange",mark);mark()})();
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}
 </script>
 </body>
 </html>
