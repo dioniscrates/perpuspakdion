@@ -130,9 +130,122 @@ label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
 .foot{position:relative;text-align:center;color:#fff;font-size:12px;font-weight:600;margin-top:10px;padding:84px 16px calc(22px + env(safe-area-inset-bottom));background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 200' preserveAspectRatio='none'%3E%3Cpath d='M0 90C200 30 380 40 560 80S900 40 1024 0V200H0Z' fill='%23bcd9fb'/%3E%3Cpath d='M0 130C220 70 420 70 600 110S900 90 1024 50V200H0Z' fill='%230a43a6'/%3E%3Cpath d='M0 160C260 110 520 120 760 150S940 140 1024 120V200H0Z' fill='%23062a66'/%3E%3C/svg%3E") bottom/100% 100% no-repeat}
 .foot:before{content:"";position:absolute;left:14px;top:6px;width:84px;height:100px;background:radial-gradient(circle,#5aa2f0 1.6px,transparent 2px) 0 0/14px 14px;opacity:.7;-webkit-mask-image:linear-gradient(180deg,#000,transparent);mask-image:linear-gradient(180deg,#000,transparent)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== VIDEO LOADING (intro + Bantuan) — tambahan, tidak mengubah gaya lain ===== */
+html.vl-lock,html.vl-lock body{overflow:hidden!important}
+.vl{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100vh;height:100dvh;z-index:2147483647;background:#060d1f;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .6s ease;touch-action:none;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+.vl.on{display:flex}
+.vl.out{opacity:0;pointer-events:none}
+.vl video{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;background:#060d1f;pointer-events:none;transition:opacity .4s ease}
+.vl video.fade{opacity:0}
+.vl video::-webkit-media-controls,.vl video::-webkit-media-controls-start-playback-button,.vl video::-webkit-media-controls-panel{display:none!important;-webkit-appearance:none}
 </style>
 </head>
 <body>
+<noscript><style>.vl{display:none!important}</style></noscript>
+<div class="vl on" id="vlIntro" aria-hidden="true"><video src="Videoo_1.mp4" muted autoplay playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1"></video></div>
+<div class="vl" id="vlHelp" aria-hidden="true"><video src="videooo_2.mp4" muted playsinline webkit-playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1"></video></div>
+<script>
+/* Video loading: (1) intro saat website dibuka/refresh, (2) saat menekan "Bantuan" lalu ke WhatsApp */
+(function(){
+  var WA="https://wa.me/6285179817241";
+  var root=document.documentElement;
+  var intro=document.getElementById("vlIntro"),help=document.getElementById("vlHelp");
+  var iv=intro.querySelector("video"),hv=help.querySelector("video");
+  var helpBusy=false;
+  root.classList.add("vl-lock");
+
+  function setInert(on){
+    var els=document.querySelectorAll("body > :not(.vl):not(script):not(noscript)");
+    for(var i=0;i<els.length;i++){ if(on)els[i].setAttribute("inert",""); else els[i].removeAttribute("inert"); }
+  }
+  setInert(true);
+
+  function prep(v){
+    v.muted=true;v.defaultMuted=true;v.loop=false;v.controls=false;
+    v.setAttribute("muted","");v.setAttribute("playsinline","");v.setAttribute("webkit-playsinline","");
+  }
+  prep(iv);prep(hv);
+
+  /* Putar video sekali. done() dipanggil tepat satu kali: saat selesai, error, autoplay diblokir, gagal mulai, atau macet. */
+  function run(v,startWait,done){
+    var over=false,t1,t2;
+    function end(){
+      if(over)return;over=true;
+      clearTimeout(t1);clearTimeout(t2);
+      v.removeEventListener("ended",end);v.removeEventListener("error",end);
+      done();
+    }
+    function arm(){
+      clearTimeout(t2);
+      var d=(isFinite(v.duration)&&v.duration>0)?v.duration:12;
+      t2=setTimeout(end,(d+3)*1000);
+    }
+    v.addEventListener("ended",end);
+    v.addEventListener("error",end);
+    v.addEventListener("loadedmetadata",arm);
+    v.addEventListener("playing",function(){clearTimeout(t1);arm();},{once:true});
+    t1=setTimeout(end,startWait);
+    arm();
+    try{ if(v.ended||v.currentTime>0)v.currentTime=0; }catch(e){}
+    var p;
+    try{ p=v.play(); }catch(e){ end(); return; }
+    if(p&&p.catch)p.catch(end);
+  }
+
+  function warmHelp(){
+    try{ hv.preload="auto"; hv.load(); }catch(e){}
+  }
+
+  /* 1) Intro */
+  function introDone(){
+    intro.classList.add("out");
+    root.classList.remove("vl-lock");
+    setInert(false);
+    setTimeout(function(){
+      intro.classList.remove("on");
+      try{ iv.pause();iv.removeAttribute("src");iv.load(); }catch(e){}
+      if(intro.parentNode)intro.parentNode.removeChild(intro);
+    },700);
+    warmHelp();
+  }
+  run(iv,5000,introDone);
+
+  /* 2) Bantuan -> video -> WhatsApp */
+  function goWA(){
+    hv.classList.add("fade");
+    setTimeout(function(){ window.location.href=WA; },400);
+  }
+  function startHelp(){
+    if(helpBusy)return;
+    helpBusy=true;
+    hv.classList.remove("fade");
+    help.classList.remove("out");
+    help.classList.add("on");
+    root.classList.add("vl-lock");
+    setInert(true);
+    run(hv,5000,goWA);
+  }
+  document.addEventListener("click",function(e){
+    if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target&&e.target.closest?e.target.closest('a[href*="wa.me/6285179817241"]'):null;
+    if(!a)return;
+    if(!document.body.contains(a)||help.contains(a))return;
+    e.preventDefault();
+    startHelp();
+  },true);
+
+  /* Jika pengunjung menekan tombol Kembali dari WhatsApp (halaman dipulihkan dari cache), kembalikan ke keadaan normal */
+  window.addEventListener("pageshow",function(e){
+    if(!e.persisted)return;
+    helpBusy=false;
+    help.classList.remove("on","out");hv.classList.remove("fade");
+    try{ hv.pause();hv.currentTime=0; }catch(_){}
+    root.classList.remove("vl-lock");
+    setInert(false);
+  });
+})();
+</script>
 <header class="top"><nav class="navpill" aria-label="Menu utama"><a class="brand" href="#/"><i>📚</i><span><b>PERPUS</b> PAK DION</span></a><div class="links" id="navlinks"><a href="#/" data-r="home" class="on">Beranda</a><a href="#/about" data-r="about">Tentang</a><a href="https://wa.me/6285179817241" target="_blank" rel="noopener">Bantuan</a></div><a class="login" href="#/admin" aria-label="Akses guru (Masuk)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>Masuk</a></nav></header>
 <main id="app"></main>
 <div class="foot">PERPUS PAK DION</div>
