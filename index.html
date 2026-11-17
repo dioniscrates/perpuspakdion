@@ -123,6 +123,7 @@ h2{font-size:20px;font-weight:800;margin:4px 0 12px}
 pre.txt{white-space:pre-wrap;word-break:break-word;padding:16px;background:#fff;max-height:72vh;overflow:auto;font-size:15px}
 .note{padding:28px 18px;text-align:center;color:var(--mut)}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.about h2{margin-bottom:10px}.about h3{font-size:1rem;margin:18px 0 8px;color:var(--navy,#0b2a5b)}.about p{line-height:1.7;margin:0 0 12px}.about ul,.about ol{margin:0 0 12px;padding-left:22px;line-height:1.7}.about li{margin-bottom:8px}.about .closing{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-weight:600}
 label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
 @media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
@@ -434,7 +435,7 @@ async function reader(id){
   }catch(err){ vc.className=""; vc.innerHTML = noPrev; }
 }
 function about(){
-  app.innerHTML = crumbs([["Beranda","#/"],["Tentang"]]) + `<a class="back" href="#/">← Kembali</a><div class="card"><h2>Tentang PERPUS PAK DION</h2><p>Perpustakaan digital untuk siswa SMP Ignatius Slamet Riyadi dan SMP Yos Sudarso. Materi dapat dibaca langsung atau didownload. Semoga bermanfaat.</p><br><p><b>Cara memakai:</b> pilih sekolah, pilih kelas, pilih materi, lalu tekan BACA MATERI atau DOWNLOAD.</p></div>`;
+  app.innerHTML = crumbs([["Beranda","#/"],["Tentang"]]) + `<a class="back" href="#/">← Kembali</a><div class="card about"><h2>Tentang PERPUS PAK DION</h2><p>Selamat datang di PERPUS PAK DION—sebuah perpustakaan digital interaktif yang dirancang khusus untuk mendampingi proses belajar mengajar mata pelajaran Informatika bagi siswa-siswi SMP Ignatius Slamet Riyadi dan SMP Yos Sudarso Bandung.</p><p>Di era digital yang bergerak cepat ini, akses terhadap sumber belajar yang fleksibel, cepat, dan mudah dijangkau menjadi kunci utama dalam menguasai keterampilan teknologi. Melalui platform ini, Pak Dion ingin memastikan setiap siswa memiliki keleluasaan untuk mendalami materi kapan saja dan di mana saja, baik saat berada di ruang kelas, laboratorium komputer, maupun di rumah.</p><h3>Apa saja yang bisa kamu temukan di sini?</h3><ul><li><b>Materi Pembelajaran Terstruktur:</b> Berisi modul, ringkasan, panduan praktik, serta lembar kerja interaktif yang disesuaikan dengan kurikulum Informatika terbaru.</li><li><b>Akses Tanpa Batas:</b> Seluruh materi disusun agar ramah dibaca langsung melalui perangkat digital (HP, tablet, atau laptop) maupun disimpan untuk belajar secara offline.</li></ul><h3>Cara Memakai:</h3><ol><li>Pilih <b>Sekolah</b> kamu (SMP Ignatius Slamet Riyadi atau SMP Yos Sudarso).</li><li>Pilih <b>Kelas</b> sesuai tingkat/tingkatanmu saat ini.</li><li>Pilih <b>Materi</b> pelajaran Informatika yang ingin dipelajari.</li><li>Tekan tombol <b>BACA MATERI</b> untuk langsung belajar secara online, atau pilih <b>DOWNLOAD</b> untuk menyimpan dokumen ke perangkatmu.</li></ol><p class="closing">Semoga platform digital ini bermanfaat, mempermudah proses belajarmu, dan menginspirasi kita semua untuk terus mengeksplorasi dunia teknologi dengan penuh semangat!</p></div>`;
 }
 
 /* ================= ADMIN ================= */
